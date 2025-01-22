@@ -21,8 +21,8 @@ const Home = () => {
   };
 
   return (
-    <div className='lg:flex '>
-      <div className='flex w-1/2 justify-start border p-4'>
+    <div className='lg:flex main-font'>
+      <div className='flex lg:w-1/2 justify-start border p-4'>
         {data.slice(-1).map((item, index) => (
           <div className='' key={index}>
             <div className='flex justify-start'>
@@ -33,30 +33,31 @@ const Home = () => {
             <div className=''>
               <div className='w-fit'>
                 <Link to={`/news/${item.headingslug}`} state={{ _id: item._id }}>
-                  <p className='text-3xl font-semibold'>{item.heading}</p>
+                  <p className='text-lg lg:text-3xl font-semibold'>{item.heading}</p>
                 </Link>
               </div>
-              <p className='text-neutral-500'>{item.date}</p>
-              <div className="description overflow-hidden after:content-['...']" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description.slice(0, 220)) }} />
+              <p className='text-xs mt-2 text-neutral-500'>{item.date} | {item.time}</p>
+              <div className="text-sm mt-4 description overflow-hidden" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description.slice(0, 220).concat(' ...')) }} />
             </div>
           </div>
         ))}
       </div>
-      <div className='w-1/2 border p-4'>
+      
+      <div className='lg:w-1/2 border p-4'>
         {data.slice(-6).slice(0, -1).reverse().map((item, index) => (
-          <div className='flex m-4' key={index}>
-            <div className='w-[150px]'>
+          <div className='flex my-4' key={index}>
+            <div className=''>
               <Link to={`/news/${item.headingslug}`} state={{ _id: item._id }}>
-                <img className='w-[100px] h-[100px] object-cover' src={item.image} alt={item.description} />
+                <img className='w-[75px] h-[75px] lg:w-[100px] lg:h-[100px] object-cover' src={item.image} alt={item.description} />
               </Link>
             </div>
-            <div className='ml-2 '>
+            <div className='ml-4 '>
               <div className=''>
                 <Link to={`/news/${item.headingslug}`} state={{ _id: item._id }}>
-                  <p className='text-base font-semibold'>{item.heading}</p>
+                  <p className='text-xs lg:text-sm w-[250px] xl:w-[300px] font-semibold'>{item.heading}</p>
                 </Link>
               </div>
-              <p className='text-neutral-500'>{item.date}</p>
+              <p className='text-xs mt-1 text-neutral-500'>{item.date} | {item.time}</p>
             </div>
           </div>
         ))}

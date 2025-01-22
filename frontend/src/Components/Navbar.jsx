@@ -39,21 +39,21 @@ const Navbar = () => {
         </div>
 
         <div className='group'>
-          <Link onClick={()=>handleScrollLink()}>Health</Link>
+          <Link to={'/health'} onClick={()=>handleScrollLink()}>Health</Link>
           <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
           </div>
         </div>
 
         <div className='group'>
-          <Link onClick={()=>handleScrollLink()}>Entertainment</Link>
+          <Link to={'/entertainment'} onClick={()=>handleScrollLink()}>Entertainment</Link>
           <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
           </div>
         </div>
 
         <div className='group'>
-          <Link onClick={()=>handleScrollLink()}>Travel</Link>
+          <Link to={'/travel'} onClick={()=>handleScrollLink()}>Travel</Link>
           <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
           </div>

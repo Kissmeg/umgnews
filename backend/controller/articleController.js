@@ -1,32 +1,5 @@
 import Article from "../model/articleMode.js";
 import {v2 as cloudinary} from 'cloudinary'
-const createArticle = async (req,res) => {
-    try {
-        console.log("Received data:", req.body);
-        console.log("Received delivery data:", req.body);
-
-        const imageFile = req.file;
-        const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
-        const imageUrl = imageUpload.secure_url;
-        console.log(req.body);
-        
-        const newArticle = await Article.create({
-            ...req.body,  // Ovdje će biti svi podaci, uključujući delivery
-            image: imageUrl
-        });
-
-        res.status(200).json({
-            message: "success",
-            item: newArticle, // Možete poslati i novokreirani item kao odgovor
-        });
-
-    } catch (error) {
-         res.status(500).json({
-            message: "error", 
-            error: error.message,  // Bolje je uputiti tačnu grešku
-        });
-    }
-}
 const getArticle = async (req, res) => {
    try {
      const article = await Article.find()
@@ -59,18 +32,45 @@ const getArticleId = async (req, res) => {
 const getCategory = async (req, res) => {
     try {
         const { category } = req.query;
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10;  // Broj artikala po stranici
+        const skip = (page - 1) * limit;
 
-        if(!category){
-            return res.status(400).json({message:"None category is available."})
-        }
-        const article = await Article.find({ category })
+        console.log("Kategorija primljena u API:", category);
+        console.log("Trenutna strana:", page);
+        console.log("Preskačem prvih:", skip);
 
-        if (article.length === 0) {
-            return res.status(404).json({message:"Article Not Found."})
+        // Proveri da li postoji podataka za zadatu kategoriju
+        const totalArticles = await Article.countDocuments({ category });
+
+        if (totalArticles === 0) {
+            console.log("Nema podataka za ovu kategoriju!");
+            return res.json({
+                data: [],
+                currentPage: page,
+                totalPages: 0,
+                hasMore: false,
+            });
         }
-        res.status(200).json(article);
+
+        // Pretraga sa sortiranje prema _id (najnoviji prvi)
+        const articles = await Article.find({ category })
+            .skip(skip)
+            .limit(limit)
+            .sort({ _id: -1 }); // Sortiranje prema _id polju, -1 znači najnoviji prvi
+
+        console.log("Broj pronađenih artikala:", articles.length);
+
+        res.json({
+            data: articles,
+            currentPage: page,
+            totalPages: Math.ceil(totalArticles / limit),
+            hasMore: skip + limit < totalArticles,
+        });
     } catch (error) {
-        return res.status(500).json({message:"Server error", error});
+        console.error("Greška u API-ju:", error);
+        res.status(500).json({ message: "Greška pri dohvaćanju podataka", error });
     }
-}
-export {createArticle, getArticle, getArticleId, getCategory}
+};
+
+export {getArticle, getArticleId, getCategory}

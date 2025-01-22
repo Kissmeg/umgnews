@@ -7,6 +7,7 @@ const articleSchema = mongoose.Schema({
     description: { type: String, required: true }, // Glavni sadržaj
     location: { type: String, required: true }, // Lokacija vesti
     date: { type: String, requried:true }, // Datum objave
+    time: {type: String, required: true},
     category: { 
         type: [String], 
         enum: [

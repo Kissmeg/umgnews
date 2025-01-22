@@ -1,6 +1,8 @@
 import express from 'express'
-import { createArticle, getArticle, getArticleId, getCategory } from '../controller/articleController.js'
+
+import {getArticle, getArticleId, getCategory } from '../controller/articleController.js'
 import upload from '../middleware/multer.js'
+import { createArticle } from '../controller/modController.js'
 const articleRoute = express.Router()
 
 articleRoute.post('/createArticle', upload.single('image'), createArticle)
