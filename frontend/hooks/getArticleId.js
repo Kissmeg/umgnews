@@ -1,10 +1,14 @@
 const getAId = () => {
     const getArticleId = async (id) => {
         try {
+          const userData = localStorage.getItem('user_data');
+
+
           const res = await fetch(`http://localhost:4000/api/getArticleId?id=${id}`, {
             method: 'GET',
             headers: {
               'Content-Type': "application/json",
+            
             },
           });
           

@@ -50,16 +50,11 @@ const Navbar = () => {
 
             </div>
           </div>
-
-          <div className='group'>
-            <Link to={'/test'} onClick={()=>handleScrollLink()}>More</Link>
-            <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
-
-            </div>
-          </div>
         
         <div>
-          <img className='w-[80px] h-[80px] object-cover' src={assets.logo} alt="" />
+          <Link to={'/test'} onClick={()=>handleScrollLink()}>
+            <img className='w-[80px] h-[80px] object-cover' src={assets.logo} alt="" />
+          </Link>
         </div>
       </div>
     </div>

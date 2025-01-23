@@ -63,8 +63,8 @@ const Home = () => {
         </div>
       </div>
       <div className='mt-12 px-4'>
-        <div className='grid grid-cols-5'>
-          <div className='grid grid-cols-2 col-span-4'>
+        <div className='grid lg:grid-cols-5'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 col-span-4'>
             {data.slice(-16).slice(0, -6).reverse().map((item, index)=>(
               <div className=''>
                 <img className='w-[250px] h-[250px] object-cover' src={item.image} alt="" />
@@ -72,8 +72,10 @@ const Home = () => {
               </div>
             ))}
           </div>
-          <div className='col-start-5 grid-rows-5'>
-          d
+          <div className='lg:col-start-5 lg:grid-rows-5'>
+            <div className='sticky border p-20 top-8'>
+              place for your ad
+            </div>
           </div>
         </div>
       </div>
