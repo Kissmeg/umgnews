@@ -11,9 +11,9 @@ const News = () => {
 
   useEffect(() => {
     const fetchArticle = async () => {
-      const _id = location.state?._id;  // Dohvatanje _id iz state
-      if (_id) {
-        const fetchedArticle = await getArticleId(_id);  // Pretraga po _id
+      const id = location.state?.id;  // Dohvatanje _id iz state
+      if (id) {
+        const fetchedArticle = await getArticleId(id);  // Pretraga po _id
         setData(fetchedArticle);
       }
     }
@@ -38,7 +38,7 @@ const News = () => {
                         <img className='size-4' src={assets.rightarrow} alt="" />
                         
                         <Link to={`/${item.category}`}>
-                          <p>{item.category.map(cat => cat.charAt(0).toUpperCase() + cat.slice(1)).join(', ')} </p>
+                          {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
                         </Link>
                         <img className='size-4' src={assets.rightarrow} alt="" />
                         <p>{item.heading}</p>

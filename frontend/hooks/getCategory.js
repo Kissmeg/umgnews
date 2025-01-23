@@ -8,22 +8,22 @@ const getCat = () => {
                 headers: { 'Content-Type': 'application/json' }
             });
 
-            const data = await res.json();
-            console.log("API Response:", data);
-
+            // Proverite da li je odgovor uspešan
             if (res.status === 200) {
-                return data;
+                const data = await res.json();
+                console.log("API Response:", data);
+                return data;  // Vraća odgovor sa podacima
             } else {
-                console.error("Hook Error.");
-                return { data: [], totalPages: 0, hasMore: false };
+                console.error("Hook Error: Unable to fetch data.");
+                return { data: [], totalPages: 0, hasMore: false }; // Vraća default vrednosti ako nije uspešno
             }
         } catch (error) {
             console.error("Fetch Error:", error);
-            return { data: [], totalPages: 0, hasMore: false };
+            return { data: [], totalPages: 0, hasMore: false }; // Vraća default vrednosti ako dođe do greške
         }
     };
 
-    return { getCategory };
+    return { getCategory };  // Vraća funkciju
 };
 
 export default getCat;
