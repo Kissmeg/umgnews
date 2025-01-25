@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { toast, ToastContainer } from 'react-toastify';
 import useCreateArticle from '../../hooks/createArticle';
+import { assets } from '../assets/assets';
 
 const Testinput = () => {
   const [inputImage, setInputImage] = useState();
@@ -130,6 +131,9 @@ const Testinput = () => {
       </div>
       <button onClick={handleItem}>submit</button>
       <button className="ml-4" onClick={handleSlug}>slug</button>
+      <div>
+        Loading more...
+      </div>
     </div>
   );
 };

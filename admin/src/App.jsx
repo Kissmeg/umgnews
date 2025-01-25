@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import Login from './Pages/Login'
+import { useAuth } from './Context/useAuth'
+import Dashboard from './Pages/Dashboard'
 
 function App() {
+  const {isAuthenticated} = useAuth();
 
   return (
-    <div className='text-4xl'>
-      dddd
+    <div className=''>
+      {isAuthenticated ? <Dashboard/> : <Login/>}    
     </div>
   )
 }

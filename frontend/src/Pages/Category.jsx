@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import getCat from '../../hooks/getCategory';
+import { assets } from '../assets/assets';
 
 const Category = () => {
     const { category } = useParams();
@@ -59,7 +60,7 @@ const Category = () => {
     };
 
     return (
-        <div className="main-font">
+        <div className="main-font" id='category'>
             {loading && page === 1 ? (
                 <div>Loading...</div>
             ) : (
@@ -72,15 +73,15 @@ const Category = () => {
                     <div className="flex justify-between flex-wrap gap-4 p-4">
                         {/* Prikaz najnovijih 3 vesti */}
                         {data.slice(0, 3).map((item, index) => (
-                            <div className="relative w-[350px] h-[350px]" key={index}>
-                                <Link to={`/news/${item.headingslug}`} state={{ id: item.id }}>
+                            <div className="relative lg:w-[350px] lg:h-[350px]" key={index}>
+                                <Link to={`/news/${item.headingslug}/${item.id} `}>
                                     <div className="relative group w-full h-full overflow-hidden ease-in-out transition-all">
-                                        <img className="w-full h-full group-hover:scale-[1.18] object-cover ease-in-out transition-all duration-300" src={item.image} alt="" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/60 group-hover:from-neutral-950/70 via-neutral-50/10 to-transparent ease-in-out transition-all"></div>
+                                        <img className="w-full h-full group-hover:scale-[1.18] object-cover ease-in-out transition-all duration-300" src={item.image[0]} alt="" />
+                                        <div className="absolute z-10 inset-0 bg-gradient-to-t from-neutral-950/60 group-hover:from-neutral-950/70 via-neutral-50/10 to-transparent ease-in-out transition-all"></div>
                                     </div>
                                 </Link>
                                 <div className="absolute text-white z-10 bottom-4 left-2 w-[80%] px-4 py-2">
-                                    <Link to={`/news/${item.headingslug}`} state={{ id: item.id }}>
+                                    <Link to={`/news/${item.headingslug}/${item.id} `}>
                                         <p className="text-lg font-semibold">{item.heading}</p>
                                         <p className='text-xs'>{item.date} | {item.time}</p>
                                     </Link>
@@ -89,36 +90,38 @@ const Category = () => {
                         ))}
                     </div>
 
-                    <div className="flex-col ml-8 mt-8 justify-center">
+                    <div className="flex-col lg:ml-8 mt-8 justify-center">
                         {/* Prikaz preostalih vesti */}
                         {data.slice(3).map((item, index) => (
-                            <div className="m-8 flex" key={index}>
-                                <Link to={`/news/${item.headingslug}`} state={{ id: item.id }}>
-                                    <div className='w-[150px] h-[150px] group overflow-hidden'>
-                                        <img className="w-[150px] h-[150px] group-hover:scale-[1.1] object-cover ease-in-out transition-all" src={item.image} alt="" />
+                            <div className="m-4 lg:flex" key={index}>
+                                <Link to={`/news/${item.headingslug}/${item.id} `}>
+                                    <div className='lg:w-[150px] lg:h-[150px] group overflow-hidden'>
+                                        <img className="lg:w-[150px] lg:h-[150px] group-hover:scale-[1.1] object-cover ease-in-out transition-all" src={item.image[0]} alt="" />
                                     </div>
                                 </Link>
-                                <div className="ml-4">
-                                    <p className="text-xl">{item.heading}</p>
-                                    <p className="text-xs text-neutral-500">{item.date} | {item.time}</p>
-                                    <div className="font-normal text-sm mt-2 w-[75%] overflow-hidden after:inline-flex text-ellipsis" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description.slice(0, 200).concat(' ...')) }} />
+                                <div className="m-2 lg:ml-4">
+                                    <p className="text-xl font-bold">{item.heading}</p>
+                                    <div className="hidden lg:block font-normal text-sm mt-2 w-[75%] overflow-hidden after:inline-flex text-ellipsis" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description.slice(0, 200).concat(' ...')) }} />
+                                    <div className="lg:hidden font-normal text-sm mt-2 w-[75%] overflow-hidden after:inline-flex text-ellipsis" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description.slice(0, 100).concat(' ...')) }} />
+                                    <p className="text-xs mb-8 mt-2 text-neutral-500">{item.date} | {item.time}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
 
                     {hasMore && !loading && (
-                        <div
-                            onClick={loadMoreData}
-                            className="text-center cursor-pointer py-4 text-blue-500 hover:underline"
-                        >
-                            Load more...
+                        <div className="flex justify-center m-4">
+                            <button className='px-4 py-2 border rounded border-black bg-black text-white hover:bg-white hover:text-black cursor-pointer ease-in-out transition-all ' onClick={loadMoreData}>Load More</button>
                         </div>
                     )}
                 </div>
             )}
             {loading && page > 1 && (
-                <div className="text-center py-4">Loading more...</div>
+                <div className='flex justify-center'>
+                    <div className='h-8 w-8 flex justify-center rounded-full animate-spin '> 
+                        <img src={assets.loading} alt="" />
+                </div>
+               </div>
             )}
         </div>
     );

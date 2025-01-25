@@ -1,13 +1,10 @@
-const getArticle = () =>{
-    const getAllArticles = async () => {
+const getAarticles = () =>{
+    const getArticles = async () => {
         try {
-
-
-            const res = await fetch('http://localhost:4000/api/getArticle', {
+            const res = await fetch('http://localhost:4000/api/getAllArticles', {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
-            
             const data = await res.json();
             if (res.status === 200) {
                 // Ako je "image" kolona još uvek string, parsiraj je u niz
@@ -25,6 +22,6 @@ const getArticle = () =>{
             return [];
         }
     };
-    return { getAllArticles };
+    return { getArticles };
 }
-export default getArticle
+export default getAarticles

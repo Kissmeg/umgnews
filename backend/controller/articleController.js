@@ -4,67 +4,93 @@ import promisePool from '../db.js';  // Importuj pool iz db.js
 
 const createArticle = async (req, res) => {
     try {
-        console.log("Received data:", req.body);
-        console.log("Received file:", req.file); // Logujte fajl koji je primljen
-
-        const { heading, headingslug, description, location, date, category, time } = req.body;
-
-        const imageFile = req.file;
-
-        // Proveri da li je slika poslata
-        if (!imageFile) {
-            return res.status(400).json({ message: "Image file is required." });
-        }
-        // Upload slike na Cloudinary
-        const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
-        const imageUrl = imageUpload.secure_url;
-        // SQL upit za unos članka u bazu
-        const query = `
-            INSERT INTO article (heading, headingslug, image, description, location, date, category, time) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `;
-        const values = [heading, headingslug, imageUrl, description, location, date, category, time];
-
-        // Izvrši SQL upit
-        const [result] = await promisePool.query(query, values);
-
-        console.log("Inserted ID:", result.insertId);
-
-        // Vraćamo novokreirani članak sa njegovim ID-jem
-        res.status(200).json({
-            message: "success",
-            article: {
-                id: result.insertId,
-                heading,
-                headingslug,
-                image: imageUrl,
-                description,
-                location,
-                date,
-                category,
-                time
-            },
-        });
-
+      console.log("Received data:", req.body);
+      console.log("Received files:", req.files);
+  
+      const { heading, headingslug, description, description2, location, date, category, time} = req.body;
+      const imageFiles = req.files;
+  
+      if (!imageFiles || imageFiles.length === 0) {
+        return res.status(400).json({ message: "At least one image is required." });
+      }
+  
+      // Upload svih slika na Cloudinary
+      const imageUploadPromises = imageFiles.map((file) =>
+        cloudinary.uploader.upload(file.path, { resource_type: "image" })
+      );
+  
+      const imageUploads = await Promise.all(imageUploadPromises);
+      const imageUrls = imageUploads.map((upload) => upload.secure_url); // Svi URL-ovi slika
+  
+      // SQL upit za unos članka u bazu, polje image treba biti tipa JSON
+      const query = `
+    INSERT INTO article (heading, headingslug, image, description, description2, location, date, category, time) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+`;
+const values = [
+    heading, 
+    headingslug, 
+    JSON.stringify(imageUrls), 
+    description, 
+    description2,  // Dodajemo novu vrednost
+    location, 
+    date, 
+    category, 
+    time
+];
+      console.log(values);
+      const [result] = await promisePool.query(query, values);
+      
+      res.status(200).json({
+        message: "success",
+        article: {
+          id: result.insertId,
+          heading,
+          headingslug,
+          images: imageUrls, // Vraćaš niz slika kao odgovor
+          description,
+          description2,
+          location,
+          date,
+          category,
+          time
+        },
+      });
+  
     } catch (error) {
-        console.error("Error in createArticle:", error);
+      console.error("Error in createArticle:", error);
+      res.status(500).json({ message: "error", error: error.message });
+    }
+  };
+  
+
+
+const deleteArticle = async (req, res) => {
+    try {
+        const { id } = req.query;
+
+        // Proveri da li ID postoji u bazi
+        const checkQuery = `SELECT * FROM article WHERE id = ?`;
+        const [existingArticle] = await promisePool.query(checkQuery, [id]);
+
+        if (existingArticle.length === 0) {
+            return res.status(404).json({ message: "Article not found" });
+        }
+
+        // Brišemo članak iz baze
+        const deleteQuery = `DELETE FROM article WHERE id = ?`;
+        await promisePool.query(deleteQuery, [id]);
+
+        res.status(200).json({ message: "Article deleted successfully" });
+    } catch (error) {
+        console.error("Error in deleteArticle:", error);
         res.status(500).json({
             message: "error",
-            error: error.message, // Prikazuje tačnu grešku
+            error: error.message,
         });
     }
 };
 
-const getArticle = async (req, res) => {
-    try {
-        // Izvrši upit za sve članke
-        const [results] = await promisePool.query('SELECT * FROM article');
-        res.status(200).json(results);  // Pošaljite rezultate kao JSON
-    } catch (err) {
-        console.error('Greška u upitu: ', err);
-        res.status(500).json({ message: 'Greška u upitu' });
-    }
-};
 const getArticleId = async (req, res) => {
     try {
         const { id } = req.query;
@@ -72,27 +98,70 @@ const getArticleId = async (req, res) => {
         if (!id) {
             return res.status(400).json({ message: "Article ID required." });
         }
-        console.log('Received ID:', id); // Provera da li id dolazi ispravno
+        console.log('Received ID:', id);
 
-        // Prvo upit za pronalaženje članka po ID-u
         const [article] = await promisePool.query(
-            'SELECT * FROM article WHERE id = ?', // Ako je "id" int, proverite tip
-            [id] // Parametri za SQL upit
+            'SELECT * FROM article WHERE id = ?', 
+            [id]
         );
 
-        console.log('Query result:', article); // Prikazuje rezultate iz baze
+        console.log('Query result:', article); // Proverava šta tačno baza vraća
 
         if (article.length === 0) {
             return res.status(404).json({ message: "Article Not Found." });
         }
 
-        res.status(200).json(article[0]); // Vraća prvi (i jedini) rezultat iz upita
-    } catch (error) {
-        console.error('Error fetching article:', error); // Detaljno logovanje greške
-        return res.status(500).json({ message: "Server error", error });
-    }
-}
+        let articleData = article[0];
 
+        // **Osiguraj da je `image` polje pravilno parsirano**
+        if (typeof articleData.image === "string") {
+            try {
+                articleData.image = JSON.parse(articleData.image);
+            } catch (parseError) {
+                console.error("Greška pri parsiranju slike:", parseError);
+                articleData.image = []; // Postavi default vrednost ako parsiranje ne uspe
+            }
+        }
+
+        // **Vraćanje odgovora u istom formatu kao `getCategory`**
+        res.status(200).json({
+            data: [articleData], // Vraćamo podatke kao niz
+        });
+
+    } catch (error) {
+        console.error('Error fetching article:', error);
+        res.status(500).json({ message: "Server error", error });
+    }
+};
+
+
+const getAllArticles = async (req, res) => {
+    try {
+        const [results] = await promisePool.query('SELECT * FROM `article` ORDER BY id DESC;',
+        );
+
+        res.status(200).json(results);  // Pošaljite rezultate kao JSON
+    } catch (err) {
+        console.error('Greška u upitu: ', err);
+        res.status(500).json({ message: 'Greška u upitu' });
+    }
+};
+const getArticle = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit =  20; 
+        const skip = (page - 1) * limit;
+
+        const [results] = await promisePool.query('SELECT * FROM `article` ORDER BY id DESC LIMIT ? OFFSET ?;',
+            [limit, skip]
+        );
+
+        res.status(200).json(results);  // Pošaljite rezultate kao JSON
+    } catch (err) {
+        console.error('Greška u upitu: ', err);
+        res.status(500).json({ message: 'Greška u upitu' });
+    }
+};
 const getCategory = async (req, res) => {
     try {
         const { category } = req.query;
@@ -130,8 +199,13 @@ const getCategory = async (req, res) => {
 
         console.log("Broj pronađenih artikala:", articles.length);
 
+        // Provera da li su artikli u formatu niza
+        if (!Array.isArray(articles)) {
+            return res.status(500).json({ message: "Greška: Vraćeni podaci nisu niz" });
+        }
+
         res.json({
-            data: articles,
+            data: articles, // Vraćamo artikle kao niz
             currentPage: page,
             totalPages: Math.ceil(totalArticles / limit),
             hasMore: skip + limit < totalArticles,
@@ -143,4 +217,5 @@ const getCategory = async (req, res) => {
 };
 
 
-export {getArticle, getArticleId, getCategory, createArticle}
+
+export {getArticle, getArticleId, getCategory, createArticle, deleteArticle, getAllArticles}

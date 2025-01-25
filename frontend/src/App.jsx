@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path={'/'} element={<Home/>}/>
           <Route path={'/test'} element={<Testinput/>}/>
-          <Route path={'/news/:_id'} element={<News/>}/>
+          <Route path={'/news/:headingslug/:id'} element={<News/>}/>
           <Route path={'/:category'} element={<Category/>}/>
           <Route path={'/moderator-login'} element={<Login/>}/>
         </Routes>

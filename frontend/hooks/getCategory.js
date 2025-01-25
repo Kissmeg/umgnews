@@ -12,7 +12,20 @@ const getCat = () => {
             if (res.status === 200) {
                 const data = await res.json();
                 console.log("API Response:", data);
-                return data;  // Vraća odgovor sa podacima
+
+                // Ako je "image" kolona string, parsiraj je u niz
+                const parsedData = data.data.map(article => ({
+                    ...article,
+                    // Ako je image u formatu stringa, parsiraj ga u niz
+                    image: Array.isArray(article.image) ? article.image : JSON.parse(article.image),
+                }));
+
+                return {
+                    data: parsedData, // Vraća podatke sa parsed slikama
+                    currentPage: data.currentPage,
+                    totalPages: data.totalPages,
+                    hasMore: data.hasMore,
+                };
             } else {
                 console.error("Hook Error: Unable to fetch data.");
                 return { data: [], totalPages: 0, hasMore: false }; // Vraća default vrednosti ako nije uspešno
