@@ -1,6 +1,6 @@
 import express from 'express'
 
-import {createArticle, deleteArticle, getAllArticles, getArticle, getArticleId, getCategory } from '../controller/articleController.js'
+import {createArticle, deleteArticle, getAllArticles, getAnalitics, getArticle, getArticleId, getCategory } from '../controller/articleController.js'
 import upload from '../middleware/multer.js'
 import { ensureToken, login, register } from '../controller/adminController.js'
 const articleRoute = express.Router()
@@ -13,4 +13,5 @@ articleRoute.get('/getCategory', getCategory)
 articleRoute.delete('/deleteArticle', ensureToken, deleteArticle)
 articleRoute.post('/login', login)
 articleRoute.post('/register', register)
+articleRoute.get('/getAnalitics', getAnalitics)  
 export default articleRoute

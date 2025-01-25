@@ -4,8 +4,6 @@ import Home from './Pages/Home'
 import Navbar from './Components/Navbar'
 import News from './Components/News'
 import Category from './Pages/Category'
-import Login from './Pages/Login'
-
 function App() {
   
 
@@ -17,7 +15,6 @@ function App() {
           <Route path={'/'} element={<Home/>}/>
           <Route path={'/news/:headingslug/:id'} element={<News/>}/>
           <Route path={'/:category'} element={<Category/>}/>
-          <Route path={'/moderator-login'} element={<Login/>}/>
         </Routes>
       </div>
     </div>

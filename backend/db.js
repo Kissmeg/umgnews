@@ -2,7 +2,7 @@ import mysql from 'mysql2';
 
 // Kreiraj connection pool
 const pool = mysql.createPool({
-    host: 'umgnews.com',
+    host: 'www.umgnews.com',
     user: 'u267629566_umgnews',
     password: 'Najjacafirmetina1@',
     database: 'u267629566_umgnews',

@@ -134,7 +134,20 @@ const getArticleId = async (req, res) => {
     }
 };
 
-
+const getAnalitics = async (req, res) => {
+    try {
+        const sql = "SELECT page, COUNT(*) as count FROM visits GROUP BY page";
+            db.query(sql, (err, results) => {
+                if (err) {
+                res.status(500).json({ message: "Greška prilikom učitavanja podataka" });
+                } else {
+                res.json(results);
+                }
+            });
+    } catch (error) {
+        
+    }
+}
 const getAllArticles = async (req, res) => {
     try {
         const [results] = await promisePool.query('SELECT * FROM `article` ORDER BY id DESC;',
@@ -159,7 +172,7 @@ const getArticle = async (req, res) => {
         res.status(200).json(results);  // Pošaljite rezultate kao JSON
     } catch (err) {
         console.error('Greška u upitu: ', err);
-        res.status(500).json({ message: 'Greška u upitu' });
+        res.status(500).json({ message: 'Greška u upitu', error: err });
     }
 };
 const getCategory = async (req, res) => {
@@ -218,4 +231,4 @@ const getCategory = async (req, res) => {
 
 
 
-export {getArticle, getArticleId, getCategory, createArticle, deleteArticle, getAllArticles}
+export {getArticle, getArticleId, getCategory, getAnalitics, createArticle, deleteArticle, getAllArticles}

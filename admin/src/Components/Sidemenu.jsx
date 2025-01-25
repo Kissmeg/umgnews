@@ -9,15 +9,18 @@ const Sidemenu = () => {
     
   return (
     <div className=''>
-      <div className='p-4'>
+      <div className='p-4 '>
         <div>
-            <p className='cursor-pointer' onClick={()=>setSelectedMenu('createArticle')}>Create Article</p>
+          <p className='cursor-pointer text-2xl hover:text-neutral-600 hover:translate-x-4 ease-in-out transition-all' onClick={()=>setSelectedMenu('mainDash')}>Dashboard</p>
         </div>
-        <div>
-            <p className='cursor-pointer' onClick={()=>setSelectedMenu('deleteArticle')}>Delete Article</p>
+        <div className='mt-2'>
+          <p className='cursor-pointer text-2xl hover:text-neutral-600 hover:translate-x-4 ease-in-out transition-all' onClick={()=>setSelectedMenu('createArticle')}>Create Article</p>
         </div>
-        <div>
-            <p className='cursor-pointer' onClick={()=>setSelectedMenu('readArticle')}>Read Articles</p>
+        <div className='mt-2'>
+          <p className='cursor-pointer text-2xl hover:text-neutral-600 hover:translate-x-4 ease-in-out transition-all' onClick={()=>setSelectedMenu('readArticle')}>Read Articles</p>
+        </div>
+        <div className='self-end text-red-500  mt-8'>
+          <p className='cursor-pointer text-2xl hover:text-red-700 hover:translate-x-4 ease-in-out transition-all' onClick={()=>setSelectedMenu('readArticle')}>Log Out</p>
         </div>
       </div>
     </div>
