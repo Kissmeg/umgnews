@@ -1,10 +1,13 @@
 const getArticle = () =>{
     const getAllArticles = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/getArticle', {
+
+
+            const res = await fetch(`${import.meta.env.VITE_URL}/api/getArticle`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
+            
             const data = await res.json();
             if (res.status === 200) {
                 // Ako je "image" kolona još uvek string, parsiraj je u niz

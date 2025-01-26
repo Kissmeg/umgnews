@@ -9,7 +9,7 @@ const delArticle = ()=>{
             return parsedData.token || null
             
             }
-            const response = await fetch(`http://localhost:4000/api/deleteArticle?id=${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_URL}/api/deleteArticle?id=${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${parsedData.token}`,  // Razmak između Bearer i tokena

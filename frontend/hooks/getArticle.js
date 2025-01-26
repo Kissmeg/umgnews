@@ -3,7 +3,7 @@ const getArticle = () =>{
         try {
 
 
-            const res = await fetch('http://localhost:4000/api/getArticle', {
+            const res = await fetch(`${import.meta.env.VITE_URL}/api/getArticle`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });

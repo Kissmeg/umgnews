@@ -3,7 +3,7 @@ const getAId = () => {
     try {
       console.log(`Fetching article ID: ${id}`);
 
-      const res = await fetch(`http://localhost:4000/api/getArticleId?id=${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_URL}/api/getArticleId?id=${id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       });

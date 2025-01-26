@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const Context = createContext();
@@ -28,8 +28,17 @@ export const JSXContext = ({ children }) =>{
           }
         }
       };
+      const handleTop = ()=>{
+        if(location.pathname){
+          window.scrollTo({top:0, behavior:"smooth"})
+          
+        }
+      }
+      useEffect(()=>{
+        handleTop()
+      },[location.pathname])
     return(
-        <Context.Provider value={{handleScrollLink}}>
+        <Context.Provider value={{handleScrollLink, handleTop}}>
             {children}
         </Context.Provider>
     )

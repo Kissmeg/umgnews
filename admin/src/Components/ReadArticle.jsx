@@ -18,10 +18,10 @@ const ReadArticle = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const fetchedArticle = await getArticles();
-        if (Array.isArray(fetchedArticle)) {
-          setData(fetchedArticle.reverse());
-        }
+          const fetchedArticle = await getArticles();
+          if (Array.isArray(fetchedArticle)) {
+            setData(fetchedArticle);
+          }
       } catch (error) {
         console.error("Greška prilikom preuzimanja podataka:", error);
       } finally {
@@ -46,7 +46,7 @@ const ReadArticle = () => {
   const currentArticles = data.slice(indexOfFirstArticle, indexOfLastArticle);
 
   return (
-    <div>
+    <div className='animation-scale ease-in-out transition-all'>
       <ToastContainer />
 
       {loading ? (
@@ -74,7 +74,7 @@ const ReadArticle = () => {
               <div className='shadow-2xl rounded-lg ease-in-out transition-all border border-black p-2 hover:scale-105' key={index}>
                 <div className='flex group justify-between'>
                   <div className='w-[100px] h-[100px] overflow-hidden'>
-                    <Link to={`/news/${item.headingslug}/${item.id}`} target='_blank'>
+                    <Link to={`https://www.umgnews.com/news/${item.headingslug}/${item.id}`} target='_blank'>
                       <img className='w-[100px] h-[100px] object-cover hover:scale-110 ease-in-out transition-all' src={item.image[0]} alt="" />
                     </Link>
                   </div>

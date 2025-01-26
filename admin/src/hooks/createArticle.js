@@ -11,7 +11,7 @@ const useCreateArticle = () => {
           return parsedData.token || null
           
         }
-        const res = await fetch('http://localhost:4000/api/createArticle', {
+        const res = await fetch(`${import.meta.env.VITE_URL}/api/createArticle`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${parsedData.token}`,  // Razmak između Bearer i tokena

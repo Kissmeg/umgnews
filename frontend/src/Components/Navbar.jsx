@@ -6,55 +6,57 @@ const Navbar = () => {
   const {handleScrollLink} = useContext(Context);
   const [mobileMenu, setMobileMenu] = useState(false)
   return (
-    <div>
-      <div className='hidden lg:flex justify-between bg-black text-white p-4 text-2xl navbar gap-4 border-b-4 border-b-neutral-400 items-center'>
+    <div className=''>
+      <div className='fixed -translate-x-1/2 left-1/2 lg:w-[80%] xl:w-[62%] z-50'>
+        <div className='hidden lg:flex justify-between  bg-black text-white p-4 text-2xl navbar gap-4 border-b-4 border-b-neutral-400 items-center'>
           <div>
-            <Link to={'/'} onClick={()=>handleScrollLink()}>
-              <img className='w-[80px] h-[80px] object-cover' src={assets.logo} alt="" />
+            <Link to={'/'} onClick={()=>handleScrollLink('home')}>
+              <img className='w-[80px] h-[80px] object-cover hover:scale-110 ease-in-out transition-all' src={assets.logo} alt="" />
             </Link>
           </div>
 
           <div className='group'>
-            <Link to={'/'} onClick={()=>handleScrollLink()}>Home</Link>
+            <Link to={'/'} onClick={()=>handleScrollLink('home')}>Home</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/world'} onClick={()=>handleScrollLink()}>World</Link>
+            <Link to={'/world'} onClick={()=>handleScrollLink('category')}>World</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/politics'} onClick={()=>handleScrollLink()}>Politics</Link>
+            <Link to={'/politics'} onClick={()=>handleScrollLink('category')}>Politics</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/business'} onClick={()=>handleScrollLink()}>Business</Link>
+            <Link to={'/business'} onClick={()=>handleScrollLink('category')}>Business</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/entertainment'} onClick={()=>handleScrollLink()}>Entertainment</Link>
+            <Link to={'/entertainment'} onClick={()=>handleScrollLink('category')}>Entertainment</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/who-is'} onClick={()=>handleScrollLink()}>Who is?</Link>
+            <Link to={'/who-is'} onClick={()=>handleScrollLink('category')}>Who is?</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
+        </div>
       </div>
       <div className='fixed z-40 top-0 left-0 w-full lg:hidden bg-black text-white p-4 text-2xl navbar gap-4 border-b-4 border-b-neutral-400 items-center'>
         <div className='flex justify-between items-center'>

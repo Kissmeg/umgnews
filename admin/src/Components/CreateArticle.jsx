@@ -71,7 +71,16 @@ const CreateArticle = () => {
       toast.error('Please upload at least one image.');
       return;
     }
-  
+    if (input.description.length === 0){
+      toast.error('Please provide description.')
+      return;
+    }
+
+    if(input.category.length === 0){
+      toast.error('Please select category.')
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('heading', input.heading);
@@ -109,7 +118,7 @@ const CreateArticle = () => {
   };
 
   return (
-    <div className="">
+    <div className="animation-scale">
       <ToastContainer />
         <div className=''>
           <div className='flex justify-between gap-2'>
@@ -142,7 +151,7 @@ const CreateArticle = () => {
                     <img src={item} alt="Slika" />
                   </div>
                 )
-              ))}
+                ))}
 
                 <div>
                   <div 
@@ -153,6 +162,27 @@ const CreateArticle = () => {
                       dangerouslySetInnerHTML={{ __html: input.description2 }}
                     />  
                 </div>
+                {imagePreviews.map((item, index) => (
+                index === 2 && (
+                  <div key={index}>
+                    <img src={item} alt="Slika" />
+                  </div>
+                )
+                ))}
+                {imagePreviews.map((item, index) => (
+                index === 3 && (
+                  <div key={index}>
+                    <img src={item} alt="Slika" />
+                  </div>
+                )
+                ))}
+                {imagePreviews.map((item, index) => (
+                index === 4 && (
+                  <div key={index}>
+                    <img src={item} alt="Slika" />
+                  </div>
+                )
+                ))}
               </div>
             </div>
             <div className='w-1/2 border overflow-hidden overflow-y-auto lg:h-[800px] p-4'>
@@ -162,6 +192,7 @@ const CreateArticle = () => {
                   <div className='border p-8 bg-white shadow-xl rounded-sm border-dashed border-black hover:scale-105 ease-in-out transition-all'>
                     <img className="text-center w-20 p-4 hover:scale-110 transition-all ease-in-out" src={assets.addimage} alt="" />
                     <p className='text-center'>Add images</p>
+                    <p className='text-center text-xs text-neutral-500'>(max 5 images)</p>
                     <input className='hidden' id='imageInput' type='file' accept='image/*' name='images' multiple onChange={handleImageChange} />
                   </div>
                 </label>
@@ -173,9 +204,9 @@ const CreateArticle = () => {
                 </div>
               </div>
               
-              <div className='flex gap-4 p-4 rounded-lg shadow-xl w-fit'>
-                <div className='w-fit'>
-                    <p>Heading</p>
+              <div className='flex gap-4 bg-white p-4 rounded-lg shadow-xl w-fit'>
+                <div className='w-fit '>
+                    <p className='text-xl'>Heading</p>
                     <input className="border rounded-md p-2 text-lg" type="text" name="heading" value={input.heading} onChange={handleChange} required />
                 </div>
                 <div className='hidden'>
@@ -184,66 +215,72 @@ const CreateArticle = () => {
                 </div>
               </div>
               
-              <div className='rounded-lg mt-4'>     
-                  <p className='mb-4'>Main text</p>
+              <div className='rounded-lg mt-4 p-4 bg-white'>     
+                  <p className='mb-1 text-xl'>Description 1</p>
                   <ReactQuill className="pb-20 rounded-sm  h-[250px] w-[300px] lg:w-[500px]" value={input.description} name="description" onChange={(value) => handleChange(value, "description")} required />
               </div>
-              <div className='rounded-lg'>     
-                  <p className='mb-4'>Secondary text <span className='text-neutral-500 text-xs'>(optional)</span></p>
+              <div className='rounded-lg p-4 mt-4 bg-white'>     
+                  <p className='mb-1 text-xl'>Description 2 <span className='text-neutral-500 text-xs'>(optional)</span></p>
                   <ReactQuill className="pb-20 rounded-sm  h-[250px] w-[300px] lg:w-[500px]" value={input.description2} name="description2" onChange={(value) => handleChange(value, "description2")} />
               </div>
                <div>
-            <p className='mb-4'>Category</p>
-            <div className='flex items-center gap-2 '>
-                <div className="flex gap-2 border p-2 rounded">
-                    <input className="border " type="radio" name="category" value="politics" checked={input.category === 'politics'} onChange={handleChange} />
-                    <p>Politics</p>
-                </div>
-                <div className="flex  gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="economy" checked={input.category === 'economy'} onChange={handleChange} />
-                    <p>Economy</p>
-                </div>
-                <div className="flex  gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="world" checked={input.category === 'world'} onChange={handleChange} />
-                    <p>World</p>
-                </div>
-                <div className="flex gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="techonology" checked={input.category === 'techonology'} onChange={handleChange} />
-                    <p>Technology</p>
-                </div>
-            </div>
+            <div className='bg-white mt-4 p-4'>
+            <p className='mb-4 text-xl'>Category</p>
+              <div className='flex items-center gap-2 '>
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border " type="radio" name="category" value="politics" checked={input.category === 'politics'} onChange={handleChange} />
+                      <p>Politics</p>
+                  </div>
+                  <div className="flex  gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="economy" checked={input.category === 'economy'} onChange={handleChange} />
+                      <p>Economy</p>
+                  </div>
+                  <div className="flex  gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="world" checked={input.category === 'world'} onChange={handleChange} />
+                      <p>World</p>
+                  </div>
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="techonology" checked={input.category === 'techonology'} onChange={handleChange} />
+                      <p>Technology</p>
+                  </div>
+              </div>
 
-            <div className='flex items-center gap-2 mt-4'>  
-                <div className="flex gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="science" checked={input.category === 'science'} onChange={handleChange} />
-                    <p>Science</p>
-                </div>
-                <div className="flex gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="sports" checked={input.category === 'sports'} onChange={handleChange} />
-                    <p>Sports</p>
-                </div>
-                <div className="flex gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="entertainment" checked={input.category === 'entertainment'} onChange={handleChange} />
-                    <p>Entertainment</p>
-                </div>
-                <div className="flex gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="series" checked={input.category === 'series'} onChange={handleChange} />
-                    <p>Series</p>
-                </div>
-            </div>
-            
-            <div className='flex items-center gap-2 mt-4'>
-                <div className="flex gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="health" checked={input.category === 'health'} onChange={handleChange} />
-                    <p>Health</p>
-                </div>
-                <div className="flex gap-2 border p-2 rounded">
-                    <input className="border" type="radio" name="category" value="business" checked={input.category === 'business'} onChange={handleChange} />
-                    <p>Business</p>
-                </div>
+              <div className='flex items-center gap-2 mt-4'>  
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="science" checked={input.category === 'science'} onChange={handleChange} />
+                      <p>Science</p>
+                  </div>
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="sports" checked={input.category === 'sports'} onChange={handleChange} />
+                      <p>Sports</p>
+                  </div>
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="entertainment" checked={input.category === 'entertainment'} onChange={handleChange} />
+                      <p>Entertainment</p>
+                  </div>
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="series" checked={input.category === 'series'} onChange={handleChange} />
+                      <p>Series</p>
+                  </div>
+              </div>
+              
+              <div className='flex items-center gap-2 mt-4'>
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="health" checked={input.category === 'health'} onChange={handleChange} />
+                      <p>Health</p>
+                  </div>
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="business" checked={input.category === 'business'} onChange={handleChange} />
+                      <p>Business</p>
+                  </div>
+                  <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="who-is" checked={input.category === 'who-is'} onChange={handleChange} />
+                      <p>Who is?</p>
+                  </div>
+              </div>
             </div>
         </div>
-              <div className='w-full flex self-end justify-between'>
+              <div className='w-full flex self-end justify-between mt-4'>
                   <div></div>
                   <button className='text-xl border rounded-md px-4 py-2 bg-black text-white hover:text-black hover:bg-white ease-in-out transition-all cursor-pointer' >Publish</button>
               </div>

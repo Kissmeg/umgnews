@@ -1,7 +1,7 @@
 const getAarticles = () =>{
     const getArticles = async () => {
         try {
-            const res = await fetch('http://localhost:4000/api/getAllArticles', {
+            const res = await fetch(`${import.meta.env.VITE_URL}/api/getAllArticles`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });

@@ -3,7 +3,7 @@ const getCat = () => {
         try {
             console.log(`Fetching category: ${category}, page: ${page}`);
 
-            const res = await fetch(`http://localhost:4000/api/getCategory?category=${category}&page=${page}`, {
+            const res = await fetch(`${import.meta.env.VITE_URL}/api/getCategory?category=${category}&page=${page}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             });

@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const Context = createContext();
 
 export const JSXContext = ({ children }) =>{
-    const [selectedMenu, setSelectedMenu] = useState('');
+    const [selectedMenu, setSelectedMenu] = useState('mainDash');
     
     const navigate = useNavigate();
     const location = useLocation();

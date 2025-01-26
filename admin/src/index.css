@@ -12,3 +12,18 @@
     font-weight: 500;
     font-style: normal;
   }
+
+  @keyframes scaleIn {
+    0% {
+      opacity: 0;
+      scale: 0;
+    }
+    100%{
+        opacity: 1;
+        scale: 1;
+    }
+  }
+
+.animation-scale {
+    animation: scaleIn 0.3s ease-in-out;
+}
