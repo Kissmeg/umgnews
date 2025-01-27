@@ -21,7 +21,8 @@ const createArticle = async (req, res) => {
   
       const imageUploads = await Promise.all(imageUploadPromises);
       const imageUrls = imageUploads.map((upload) => upload.secure_url); // Svi URL-ovi slika
-  
+      
+      
       // SQL upit za unos članka u bazu, polje image treba biti tipa JSON
       const query = `
     INSERT INTO article (heading, headingslug, image, description, description2, location, date, category, time) 

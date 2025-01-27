@@ -7,11 +7,10 @@ const articleRoute = express.Router()
 
 articleRoute.post('/createArticle', ensureToken, upload.array('images', 5), createArticle);
 articleRoute.get('/getArticle', getArticle)
-articleRoute.get('/getAllArticles', getAllArticles)
+articleRoute.get('/getAllArticles', ensureToken, getAllArticles)
 articleRoute.get('/getArticleId', getArticleId)
 articleRoute.get('/getCategory', getCategory)
 articleRoute.delete('/deleteArticle', ensureToken, deleteArticle)
 articleRoute.post('/login', login)
-articleRoute.post('/register', register)
 articleRoute.get('/getAnalitics', getAnalitics)  
 export default articleRoute
