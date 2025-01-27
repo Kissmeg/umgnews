@@ -24,6 +24,7 @@ function App() {
           <Route path={'/policy'} element={<Policy/>}/>
           <Route path={'/faq'} element={<FAQ/>}/>
           <Route path={'/contact'} element={<Contact/>}/>
+          <Route path={'/*'} element={<Notfound/>}/>
           <Route path={'/category'} element={<Categories/>}/>
         </Routes>
         <Footer />
