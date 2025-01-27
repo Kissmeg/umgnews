@@ -82,7 +82,7 @@ const ReadArticle = () => {
                     <div className='flex'>
                       <p className='text-xs text-neutral-500'>{item.date}</p>
                       <p className='text-xs ml-1 text-neutral-500'>| {item.time}</p>
-                      <Link to={`https://www.umgnews.com/${item.category}`} target='_blank'>
+                      <Link to={`https://www.umgnews.com/category/${item.category}`} target='_blank'>
                         <p className='text-xs ml-1 text-neutral-500'>| {item.category.charAt(0).toUpperCase() + item.category.slice(1)}</p>
                       </Link>
                     </div>

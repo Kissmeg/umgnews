@@ -8,6 +8,8 @@ import Footer from './Components/Footer'
 import Policy from './Pages/Policy'
 import FAQ from './Pages/FAQ'
 import Contact from './Pages/Contact'
+import Notfound from './Pages/Notfound'
+import Categories from './Pages/Categories'
 function App() {
   
 
@@ -18,10 +20,12 @@ function App() {
         <Routes>
           <Route path={'/'} element={<Home/>}/>
           <Route path={'/news/:headingslug/:id'} element={<News/>}/>
-          <Route path={'/:category'} element={<Category/>}/>
+          <Route path={'category/:category'} element={<Category/>}/>
           <Route path={'/policy'} element={<Policy/>}/>
           <Route path={'/faq'} element={<FAQ/>}/>
           <Route path={'/contact'} element={<Contact/>}/>
+          <Route path={'/*'} element={<Notfound/>}/>
+          <Route path={'/category'} element={<Categories/>}/>
         </Routes>
         <Footer />
       </div>

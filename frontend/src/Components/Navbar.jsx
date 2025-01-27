@@ -23,35 +23,35 @@ const Navbar = () => {
           </div>
 
           <div className='group'>
-            <Link to={'/world'} onClick={()=>handleScrollLink('category')}>World</Link>
+            <Link to={'/category/world'} onClick={()=>handleScrollLink('category')}>World</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/politics'} onClick={()=>handleScrollLink('category')}>Politics</Link>
+            <Link to={'/category/politics'} onClick={()=>handleScrollLink('category')}>Politics</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/business'} onClick={()=>handleScrollLink('category')}>Business</Link>
+            <Link to={'/category/business'} onClick={()=>handleScrollLink('category')}>Business</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/entertainment'} onClick={()=>handleScrollLink('category')}>Entertainment</Link>
+            <Link to={'/category/entertainment'} onClick={()=>handleScrollLink('category')}>Entertainment</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
           </div>
 
           <div className='group'>
-            <Link to={'/who-is'} onClick={()=>handleScrollLink('category')}>Who is?</Link>
+            <Link to={'/category/who-is'} onClick={()=>handleScrollLink('category')}>Who is?</Link>
             <div className='group-hover:w-full w-0 border-2 border-black group-hover:border-b-white ease-in-out transition-all'>
 
             </div>
@@ -79,27 +79,27 @@ const Navbar = () => {
             </Link>
           </div>
           <div className='my-4'>
-            <Link to={'/world'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
+            <Link to={'/category/world'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
               <p>World</p>
             </Link>
           </div>
           <div className='my-4'>
-            <Link to={'/politics'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
+            <Link to={'/category/politics'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
               <p>Politics</p>
             </Link>
           </div>
           <div className='my-4'>
-            <Link to={'/business'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
+            <Link to={'/category/business'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
               <p>Business</p>
             </Link>
           </div>
           <div className='my-4'>
-            <Link to={'/entertainment'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
+            <Link to={'/category/entertainment'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
               <p>Entertainment</p>
             </Link>
           </div>
           <div className='my-4'>
-            <Link to={'/who-is'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
+            <Link to={'/category/who-is'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
               <p>Who is?</p>
             </Link>
           </div>

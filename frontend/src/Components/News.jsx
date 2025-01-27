@@ -46,7 +46,7 @@ const News = () => {
                         </Link>
                         <img className='size-4' src={assets.rightarrow} alt="" />
                         
-                        <Link className='hover:underline' to={`/${item.category}`}>
+                        <Link className='hover:underline' to={`/category/${item.category}`}>
                           {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
                         </Link>
                         <img className='size-4' src={assets.rightarrow} alt="" />
