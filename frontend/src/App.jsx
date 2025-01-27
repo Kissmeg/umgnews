@@ -34,3 +34,34 @@ function App() {
 }
 
 export default App
+{/*
+   nano /etc/nginx/sites-available/umgnews.com.conf
+  
+   server {
+    listen 80;
+    server_name umgnews.com www.umgnews.com;
+
+    location / {
+        root /var/www/umgnews/frontend/dist;
+        try_files $uri /index.html;
+    }
+  }
+  
+
+   nano /etc/nginx/sites-available/admin.umgnews.com.conf
+
+   server {
+    listen 80;
+    server_name admin.umgnews.com;
+
+    location / {
+        root /var/www/umgnews/admin/dist;
+        try_files $uri /index.html;
+    }
+  }
+
+
+  ln -s /etc/nginx/sites-available/umgnews.com.conf /etc/nginx/sites-enabled/
+
+  ln -s /etc/nginx/sites-available/admin.umgnews.com.conf /etc/nginx/sites-enabled/
+  */}
