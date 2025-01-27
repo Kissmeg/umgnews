@@ -200,8 +200,8 @@ const Home = () => {
               </div>
               <div className='hidden lg:block lg:col-start-5 lg:grid-rows-5'>
                 <div className='sticky border-2 border-black rounded-lg p-4 top-32  text-center'>
-                  <p>Reach out to us at</p>
-                  <a href='mailto:support@umgnews.com' className='text-blue-700'>contact@umgnews.com</a>
+                  <p className='text-xs lg:text-xs'>Reach out to us at</p>
+                  <a href='mailto:support@umgnews.com' className='text-blue-700 text-center text-xs lg:text-xs'>contact@umgnews.com</a>
                 </div>
               </div>
             </div>
