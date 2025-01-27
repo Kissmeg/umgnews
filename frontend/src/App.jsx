@@ -24,7 +24,6 @@ function App() {
           <Route path={'/policy'} element={<Policy/>}/>
           <Route path={'/faq'} element={<FAQ/>}/>
           <Route path={'/contact'} element={<Contact/>}/>
-          <Route path={'/*'} element={<Notfound/>}/>
           <Route path={'/category'} element={<Categories/>}/>
         </Routes>
         <Footer />
@@ -35,6 +34,8 @@ function App() {
 
 export default App
 {/*
+ssh-keygen -R 147.93.113.90
+
    nano /etc/nginx/sites-available/umgnews.com.conf
   
    server {
@@ -64,4 +65,8 @@ export default App
   ln -s /etc/nginx/sites-available/umgnews.com.conf /etc/nginx/sites-enabled/
 
   ln -s /etc/nginx/sites-available/admin.umgnews.com.conf /etc/nginx/sites-enabled/
+
+  certbot --nginx -d umgnews.com -d www.umgnews.com -d admin.umgnews.com
+  certbot --nginx -d umgnews.com -d www.umgnews.com -d admin.umgnews.com 
+  kontrash297@gmail.com
   */}
