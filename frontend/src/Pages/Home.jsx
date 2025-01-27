@@ -119,7 +119,7 @@ const Home = () => {
         </div>
       </div>
       ) : (
-        <div id='home'>
+        <div className='' id='home'>
           <div className='lg:flex main-font pt-28'>
             <div className='flex lg:w-1/2 justify-start border-l p-4'>
               {data.length === 0 ? (
@@ -148,14 +148,14 @@ const Home = () => {
               )}
             </div>
 
-            <div className='lg:w-1/2 border-r p-4'>
+            <div className='lg:w-1/2 border-r p-4 '>
               {data.length === 0 ? (
                 <div>
                     <p>Currently there are no articles.</p>
                 </div>
               ) : (
                 data.slice(1, 7).slice(0, -1).map((item, index) => (
-                  <div className='flex my-4' key={index}>
+                  <div className='flex my-4 ' key={index}>
                     <div className=''>
                       <Link to={`/news/${item.headingslug}/${item.id} `}>
                         <img className='w-[75px] h-[75px] md:w-[100px] md:h-[100px] object-cover' src={item.image[0]} alt={item.description} />

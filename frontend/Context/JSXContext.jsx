@@ -37,6 +37,7 @@ export const JSXContext = ({ children }) =>{
       useEffect(()=>{
         handleTop()
       },[location.pathname])
+
     return(
         <Context.Provider value={{handleScrollLink, handleTop}}>
             {children}

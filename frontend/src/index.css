@@ -17,3 +17,21 @@
   font-variation-settings:
     "wdth" 100;
 }
+.animation-hidden{
+  
+  opacity: 0;
+  filter:blur(2px);
+  
+  transition: all 1s;
+}
+.show{
+  overflow: hidden;
+  opacity: 1;
+  filter: blur(0);
+  
+}
+@media(prefers-reduced-motion){
+  .animation-hidden{
+    transition: none;
+  }
+}

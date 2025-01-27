@@ -35,7 +35,6 @@ const Category = () => {
             setPageUpdated(false);  // Postavljanje na false nakon učitavanja
         }
     };
-
     // Resetovanje podataka i početak sa prve stranice prilikom promene kategorije
     useEffect(() => {
         setData([]); // Resetovanje prethodnih podataka

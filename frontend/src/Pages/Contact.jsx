@@ -22,8 +22,6 @@ const Contact = () => {
             <p className='font-semibold'>Social Media</p>
             <p className='ml-4 w-1/2 mt-2'>Stay connected with us on social media:</p>
             <ul className='ml-8 mt-2 list-disc'>
-              <li><a href='https://twitter.com/umgnews.usa' target='_blank' rel='noopener noreferrer' className='text-blue-500'>Twitter</a></li>
-              <li><a href='https://facebook.com/umgnews.usa' target='_blank' rel='noopener noreferrer' className='text-blue-500'>Facebook</a></li>
               <li><a href='https://instagram.com/umgnews.usa' target='_blank' rel='noopener noreferrer' className='text-blue-500'>Instagram</a></li>
             </ul>
           </div>
