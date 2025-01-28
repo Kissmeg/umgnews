@@ -35,7 +35,10 @@ function App() {
 
 export default App
 {/*
-ssh-keygen -R 147.93.113.90
+    ssh root@147.93.113.90
+    
+    
+    ssh-keygen -R 147.93.113.90
 
    nano /etc/nginx/sites-available/umgnews.com.conf
   
@@ -48,7 +51,18 @@ ssh-keygen -R 147.93.113.90
         try_files $uri /index.html;
     }
   }
-  
+  server {
+    listen 80;
+    server_name umgnews.com www.umgnews.com;
+    location / {
+        proxy_pass http://147.93.113.90:4000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
 
    nano /etc/nginx/sites-available/admin.umgnews.com.conf
 
@@ -61,7 +75,18 @@ ssh-keygen -R 147.93.113.90
         try_files $uri /index.html;
     }
   }
-
+server {
+    listen 80;
+    server_name admin.umgnews.com;
+    location / {
+        proxy_pass http://147.93.113.90:4000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
 
   ln -s /etc/nginx/sites-available/umgnews.com.conf /etc/nginx/sites-enabled/
 

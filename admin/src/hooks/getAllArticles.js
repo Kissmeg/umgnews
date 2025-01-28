@@ -1,9 +1,16 @@
 const getAarticles = () =>{
     const getArticles = async () => {
         try {
+
+            const userData = localStorage.getItem('admin_data');
+
+            const parsedData = JSON.parse(userData);
+
             const res = await fetch(`${import.meta.env.VITE_URL}/api/getAllArticles`, {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${parsedData.token}`,
+                 },
             });
             const data = await res.json();
             if (res.status === 200) {
