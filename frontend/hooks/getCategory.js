@@ -1,7 +1,7 @@
 const getCat = () => {
     const getCategory = async (category, page = 1) => {
         try {
-            console.log(`Fetching category: ${category}, page: ${page}`);
+            
 
             const res = await fetch(`${import.meta.env.VITE_URL}/api/getCategory?category=${category}&page=${page}`, {
                 method: 'GET',
@@ -11,7 +11,7 @@ const getCat = () => {
             // Proverite da li je odgovor uspešan
             if (res.status === 200) {
                 const data = await res.json();
-                console.log("API Response:", data);
+                
 
                 // Ako je "image" kolona string, parsiraj je u niz
                 const parsedData = data.data.map(article => ({

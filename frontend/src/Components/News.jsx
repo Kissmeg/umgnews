@@ -1,38 +1,66 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useLocation, Link } from 'react-router-dom'
+import { useParams, useLocation, Link, Navigate } from 'react-router-dom'
 import getArticle from '../../hooks/getArticleId';
 import { assets } from '../assets/assets';
 
 const News = () => {
-  const { headingslug, id } = useParams();  // Preuzimanje headingslug iz URL-a
+  const { id, headingslug } = useParams();  // Preuzimanje headingslug iz URL-a
   const location = useLocation();  // Pristupanje stanju koje je poslano preko Link-a
   const { getArticleId } = getArticle();
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
-  
+  const [bigImage, setBigImage] = useState();
+  const [notFound, setNotFound] = useState(false);  // Dodato za 404 redirekciju
+
   useEffect(() => {
     const fetchArticle = async () => {
       setLoading(false);
       try {
-        if (id) {
-          const fetchedArticle = await getArticleId(id);  // Pretraga po _id
-          setData(fetchedArticle);
+        if (id && headingslug) {
+          const fetchedArticle = await getArticleId(id, headingslug);
+          if (!fetchedArticle || fetchedArticle.length === 0) {
+            setNotFound(true);  // Ako nema članka, označi kao 404
+          } else {
+            setData(fetchedArticle);
+          }
         }
+      } catch (error) {
+        setNotFound(true); // Ako API poziv pukne, tretiramo ga kao 404
+      } finally {
+        setLoading(true);
       }
-      catch (error) {
-        
-      }
-      finally{
-        setLoading(true)
-        }
-      }
-      fetchArticle() 
-  }, [location.state, headingslug]);
+    };
+    fetchArticle();
+  }, [location.state, headingslug, id]);
+
+  // Ako članak ne postoji, preusmeri na 404
+  if (notFound) {
+    return <Navigate to="/404" replace />;
+  }
+
   const cleanDescription = (description) => {
     return description.replace(/<\/?p>/g, '');
   };
+
+  const clickImage = (image) =>{
+    setBigImage(image)
+    console.log(image);
+    
+  }
   return (
     <div className='main-font'>
+      {bigImage && (
+       <div>
+        <div className='fixed z-50 left-0 bg-black w-full h-full opacity-50' onClick={()=>setBigImage(!bigImage)}>
+          <div className=''>
+
+          </div>
+        </div>
+          <div className='fixed z-50 p-4 top-1/2 -translate-y-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:left-1/2 lg:top-1/2'>
+            <img className='cursor-pointer' src={bigImage} onClick={()=>setBigImage(!bigImage)} alt="" />
+          </div>
+       </div>
+      )}
       {loading ? (
         <div className='p-4'>
           <div>
@@ -58,25 +86,25 @@ const News = () => {
                       <p className='text-neutral-500 text-xs'>{item.date} | {item.time}</p>
                     </div>
                     <div className='mt-4'>
-                      <img className='lg:max-w-[500px] lg:max-h-[500px] object-cover' src={item.image[0]} alt="" />
+                      <img className='md:max-w-[500px] md:max-h-[500px] object-cover cursor-pointer' src={item.image[0]} onClick={()=>clickImage(item.image[0])} alt="" />
                     </div>
-                    <div className=' w-[50%]'>
+                    <div className='mt-8 lg:w-[50%]'>
                       <div className="overflow-hidden" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description) }} />
                     </div>
                     <div className='mt-4'>
-                      <img className='lg:max-w-[500px] lg:max-h-[500px] object-cover' src={item.image[1]} alt="" />
+                      <img className='md:max-w-[500px] md:max-h-[500px] object-cover cursor-pointer' src={item.image[1]} alt="" onClick={()=>clickImage(item.image[1])}/>
                     </div>
-                    <div className=' w-[50%]'>
+                    <div className='mt-8 lg:w-[50%]'>
                       <div className="overflow-hidden" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description2) }} />
                     </div>
                     <div className='mt-4'>
-                      <img className='lg:max-w-[500px] lg:max-h-[500px] object-cover' src={item.image[2]} alt="" />
+                      <img className='md:max-w-[500px] md:max-h-[500px] object-cover cursor-pointer' src={item.image[2]} alt="" onClick={()=>clickImage(item.image[2])}/>
                     </div>
                     <div className='mt-4'>
-                      <img className='lg:max-w-[500px] lg:max-h-[500px] object-cover' src={item.image[3]} alt="" />
+                      <img className='md:max-w-[500px] md:max-h-[500px] object-cover cursor-pointer' src={item.image[3]} alt="" onClick={()=>clickImage(item.image[3])}/>
                     </div>
                     <div className='mt-4'>
-                      <img className='lg:max-w-[500px] lg:max-h-[500px] object-cover' src={item.image[4]} alt="" />
+                      <img className='md:max-w-[500px] md:max-h-[500px] object-cover cursor-pointer' src={item.image[4]} alt="" onClick={()=>clickImage(item.image[4])}/>
                     </div>
                 </div>
             ))}

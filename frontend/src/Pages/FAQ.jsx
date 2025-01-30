@@ -40,7 +40,7 @@ const FAQ = () => {
           </div>
           <div className='mt-6 mb-12'>
             <p className='font-semibold'>9. How can I advertise on UMGNews?</p>
-            <p className='ml-4 w-1/2 mt-2'>If you are interested in advertising with us, please contact our marketing team at support@umgnews.com for more information on available options.</p>
+            <p className='ml-4 w-1/2 mt-2'>If you are interested in advertising with us, please contact our marketing team at ads@umgnews.com for more information on available options.</p>
           </div>
         </div>
       </div>

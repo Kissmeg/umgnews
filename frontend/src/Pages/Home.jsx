@@ -131,7 +131,7 @@ const Home = () => {
                   <div key={index}>
                     <div className='flex justify-start'>
                       <Link to={`/news/${item.headingslug}/${item.id} `}>
-                        <img className='h-[350px] w-[350px] object-cover ' src={item.image[0]} alt="" />
+                        <img className='lg:h-[450px] lg:w-[450px] object-cover ' src={item.image[0]} alt="" />
                       </Link>
                     </div>
                     <div className=''>
@@ -141,7 +141,9 @@ const Home = () => {
                         </Link>
                       </div>
                       <p className='text-xs mt-2 text-neutral-500'>{item.date} | {item.time}</p>
-                      <div className="text-sm mt-4 description overflow-hidden" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description.slice(0, 220).concat(' ...')) }} />
+                      <Link to={`/news/${item.headingslug}/${item.id} `}>
+                        <div className="text-sm mt-4 description overflow-hidden" dangerouslySetInnerHTML={{ __html: cleanDescription(item.description.slice(0, 220).concat(' ...')) }} />
+                      </Link>
                     </div>
                   </div>
                 ))
@@ -156,14 +158,14 @@ const Home = () => {
               ) : (
                 data.slice(1, 7).slice(0, -1).map((item, index) => (
                   <div className='flex my-4 ' key={index}>
-                    <div className=''>
+                    <div className='md:min-w-[100px] md:h-[100px]'>
                       <Link to={`/news/${item.headingslug}/${item.id} `}>
                         <img className='w-[75px] h-[75px] md:w-[100px] md:h-[100px] object-cover' src={item.image[0]} alt={item.description} />
                       </Link>
                     </div>
                     <div className='ml-4'>
                       <Link to={`/news/${item.headingslug}/${item.id} `}>
-                        <p className='text-xs lg:text-sm w-[250px] xl:w-[300px] font-semibold'>{item.heading}</p>
+                        <p className='text-xs lg:text-sm  font-semibold'>{item.heading}</p>
                       </Link>
                       <p className='text-xs mt-1 text-neutral-500'>{item.date} | {item.time}</p>
                     </div>
@@ -174,7 +176,7 @@ const Home = () => {
           </div>
           <div className=' px-4 border-x border-t pt-8'>
             <div>
-              <p className='text-2xl font-semibold'>Latest News</p>
+              <p className='text-3xl font-semibold'>Latest News</p>
             </div>
             <div className='grid lg:grid-cols-5'>
               <div className='grid grid-cols-1 md:grid-cols-2 col-span-5 lg:col-span-4'>
@@ -189,7 +191,8 @@ const Home = () => {
                         <Link to={`/news/${item.headingslug}/${item.id}`}><img className='md:w-[250px] md:h-[150px] hover:scale-[1.15] object-cover ease-in-out transition-all' src={item.image[0]} alt="" /></Link>
                       </div>
                       <div className='ml-1 md:w-1/2'>
-                        <Link to={`/news/${item.headingslug}/${item.id}`}><p className='font-bold hover:text-neutral-500 mt-2 hover:translate-x-2 ease-in-out transition-all '>{item.heading}</p></Link>
+                        <Link to={`/news/${item.headingslug}/${item.id}`}>
+                        <p className='font-bold hover:text-neutral-500 mt-2 hover:translate-x-2 ease-in-out transition-all '>{item.heading}</p></Link>
                         <div className='mt-2'>
                           <p className='mb-8 text-neutral-500 text-xs'>{item.date} | {item.time}</p>
                         </div>

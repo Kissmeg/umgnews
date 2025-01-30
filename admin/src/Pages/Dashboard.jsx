@@ -6,16 +6,20 @@ import { Context } from '../Context/JSXContext'
 import { useContext } from 'react'
 import ReadArticle from '../Components/ReadArticle'
 import MainDash from '../Components/MainDash'
+import MobileMenu from '../Components/MobileMenu'
 
 const Dashboard = () => {
   const {setSelectedMenu, selectedMenu} = useContext(Context);
   return (
     <div>
-      <div className="grid grid-cols-5 grid-rows-5 gap-4 p-8 h-screen">
-        <div className="row-span-5 border rounded-2xl shadow-2xl bg-blue-50">
+      <div className='lg:hidden'>
+        <MobileMenu/>
+      </div>
+      <div className="grid lg:grid-cols-5 lg:grid-rows-5 gap-4 lg:p-8 lg:h-screen">
+        <div className="row-span-5 border rounded-2xl shadow-2xl hidden lg:block">
           <Sidemenu/>
         </div>
-        <div className="col-span-4 row-span-5 rounded-2xl shadow-2xl border p-4 bg-blue-50">
+        <div className="lg:col-span-4 lg:row-span-5 overflow-hidden overflow-y-scroll xl:overflow-y-hidden rounded-2xl shadow-2xl lg:border pt-20 p-4 lg:p-4 ">
           {selectedMenu === 'mainDash' &&(
             <MainDash/>
           )}

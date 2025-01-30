@@ -23,6 +23,11 @@ const Footer = () => {
                         <Link to={`/category/business`}><p className='      mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Business</p></Link>
                         <Link to={`/category/entertainment`}><p className=' mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Entertainment</p></Link>
                         <Link to={`/category/who-is`}><p className='        mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Who is?</p></Link>
+                        <div className='w-fit border-t mt-2'>
+                            <Link to={`/category`}>
+                                <p className='mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Categories</p>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

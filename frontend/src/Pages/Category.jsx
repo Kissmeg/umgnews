@@ -99,7 +99,7 @@ const Category = () => {
                             <div className="flex justify-between flex-wrap gap-4 p-4">
                                 {/* Prikaz najnovijih 3 vesti */}
                                 {data.slice(0, 3).map((item, index) => (
-                                    <div className="relative h-[250px] md:w-[350px] md:h-[350px]" key={index}>
+                                    <div className="relative h-[250px] md:w-[350px] md:h-[350px] lg:w-[280px] lg:h-[280px] xl:w-[320px] xl:h-[320px]" key={index}>
                                         <Link to={`/news/${item.headingslug}/${item.id} `}>
                                             <div className="relative group w-full h-full overflow-hidden ease-in-out transition-all">
                                                 <img className="w-full h-full group-hover:scale-[1.18] object-cover ease-in-out transition-all duration-300" src={item.image[0]} alt="" />

@@ -27,3 +27,7 @@
 .animation-scale {
     animation: scaleIn 0.3s ease-in-out;
 }
+
+.ql-toolbar, .ql-tooltip {
+  z-index: 2 !important;  /* Ili neki drugi broj koji je niži od navbar-a */
+}

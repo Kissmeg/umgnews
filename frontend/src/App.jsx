@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className='flex justify-center '>
-      <div className='lg:w-[80%] xl:w-[62%] w-full'>
+      <div className='lg:w-[80%] xl:w-[60%] w-full'>
         <Navbar/>
         <Routes>
           <Route path={'/'} element={<Home/>}/>
@@ -24,7 +24,7 @@ function App() {
           <Route path={'/policy'} element={<Policy/>}/>
           <Route path={'/faq'} element={<FAQ/>}/>
           <Route path={'/contact'} element={<Contact/>}/>
-          <Route path={'/*'} element={<Notfound/>}/>
+          <Route path={'*'} element={<Notfound/>}/>
           <Route path={'/category'} element={<Categories/>}/>
         </Routes>
         <Footer />

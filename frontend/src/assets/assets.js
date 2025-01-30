@@ -1,6 +1,7 @@
 import rightarrow from './rightarrow.svg'
 import loading from './loading.svg'
 import menu from './menu.svg'
+import arrowup from './arrowup.svg'
 import logo from './logo.png'
 
 import trashcan from './trashcan.svg'
@@ -8,6 +9,7 @@ import instagram from './instagram.svg'
 
 export const assets = {
     trashcan,
+    arrowup,
     instagram,
     rightarrow,
     logo,
@@ -15,16 +17,16 @@ export const assets = {
     loading,
 }
 import cat1 from './cat1.webp'
-import cat2 from './cat2.jpg'
-import cat3 from './cat3.avif'
+import cat2 from './cat2.webp'
+import cat3 from './cat3.webp'
 import cat4 from './cat4.webp'
-import cat5 from './cat5.png'
-import cat6 from './cat6.jpg'
-import cat7 from './cat7.jpg'
-import cat8 from './cat8.jpg'
-import cat9 from './cat9.jpg'
+import cat5 from './cat5.webp'
+import cat6 from './cat6.webp'
+import cat7 from './cat7.webp'
+import cat8 from './cat8.webp'
+import cat9 from './cat9.webp'
 import cat10 from './cat10.webp'
-import cat11 from './cat11.png'
+import cat11 from './cat11.webp'
 
 export const categories = [
     {

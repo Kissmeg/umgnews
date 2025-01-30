@@ -94,16 +94,18 @@ const deleteArticle = async (req, res) => {
 
 const getArticleId = async (req, res) => {
     try {
-        const { id } = req.query;
+        const { id, headingslug } = req.query;
         
         if (!id) {
             return res.status(400).json({ message: "Article ID required." });
         }
-        console.log('Received ID:', id);
+        if (!headingslug) {
+            return res.status(400).json({ message: "Article slug required." });
+        }
 
         const [article] = await promisePool.query(
-            'SELECT * FROM article WHERE id = ?', 
-            [id]
+            'SELECT * FROM article WHERE id = ? AND headingslug = ?', 
+            [id, headingslug]
         );
 
         console.log('Query result:', article); // Proverava šta tačno baza vraća

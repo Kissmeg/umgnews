@@ -1,4 +1,4 @@
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const Context = createContext();
@@ -6,7 +6,7 @@ export const Context = createContext();
 export const JSXContext = ({ children }) =>{
     const navigate = useNavigate();
     const location = useLocation();
-    
+    const [upButton, setUpButton] = useState();
     const handleScrollLink = (target) => {
         if (location.pathname !== '/') {
           // Ako nismo na glavnoj stranici, navigiraj na početnu stranicu
@@ -34,12 +34,27 @@ export const JSXContext = ({ children }) =>{
           
         }
       }
+
+      const handleScroll = () => {
+        if (window.scrollY > 0) {
+          setUpButton('bg-black animation-up hover:scale-105 ease-in-out transition-all');
+        } else {
+          setUpButton('hidden')
+        }
+      }
       useEffect(()=>{
         handleTop()
-      },[location.pathname])
+        handleScroll()
 
+        window.addEventListener('scroll', handleScroll);
+
+        // Čistimo event listener kada se komponenta unmount-uje
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      },[location.pathname])
     return(
-        <Context.Provider value={{handleScrollLink, handleTop}}>
+        <Context.Provider value={{handleScrollLink, handleTop, upButton, handleScroll}}>
             {children}
         </Context.Provider>
     )

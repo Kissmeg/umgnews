@@ -63,7 +63,18 @@ const CreateArticle = () => {
     const createSlug = input.heading.toLowerCase().replace(/ /g, '-');
     setHeadingSlug(createSlug);
   };
-
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .replace(/[ćč]/g, 'c')
+      .replace(/đ/g, 'dj')
+      .replace(/š/g, 's')
+      .replace(/ž/g, 'z')
+      .replace(/\s+/g, '-') // Zameni razmake sa '-'
+      .replace(/[^a-z0-9-]/g, ''); // Ukloni sve ostale karaktere
+  }
+  
+  
   const handleItem = async (e) => {
     e.preventDefault();
   
@@ -84,7 +95,7 @@ const CreateArticle = () => {
     try {
       const formData = new FormData();
       formData.append('heading', input.heading);
-      formData.append('headingslug', headingSlug || input.heading.toLowerCase().replace(/ /g, '-'));
+      formData.append('headingslug', headingSlug || slugify(input.heading));
       formData.append('description', input.description);
       formData.append('description2', input.description2);
       formData.append('location', input.location);
@@ -121,8 +132,8 @@ const CreateArticle = () => {
     <div className="animation-scale">
       <ToastContainer />
         <div className=''>
-          <div className='flex justify-between gap-2'>
-            <div className='w-1/2 border overflow-hidden overflow-y-auto lg:h-[800px] p-4'>
+          <div className='lg:flex justify-between gap-2'>
+            <div className='lg:w-1/2 border rounded-lg overflow-hidden overflow-y-auto lg:h-[800px] p-4'>
               <div>
                 <input className="p-2 text-2xl cursor-default w-full" type="text" name="heading" value={input.heading} onChange={handleChange} readOnly /> 
               </div>  
@@ -185,27 +196,31 @@ const CreateArticle = () => {
                 ))}
               </div>
             </div>
-            <div className='w-1/2 border overflow-hidden overflow-y-auto lg:h-[800px] p-4'>
+            <div className='lg:w-1/2 border rounded-lg overflow-hidden overflow-y-auto lg:h-[800px] p-2 lg:p-4'>
               <form onSubmit={handleItem}>
               <div className=''>
-                <label className='cursor-pointer flex items-center text-xs w-fit' htmlFor="imageInput">
-                  <div className='border p-8 bg-white shadow-xl rounded-sm border-dashed border-black hover:scale-105 ease-in-out transition-all'>
-                    <img className="text-center w-20 p-4 hover:scale-110 transition-all ease-in-out" src={assets.addimage} alt="" />
-                    <p className='text-center'>Add images</p>
-                    <p className='text-center text-xs text-neutral-500'>(max 5 images)</p>
-                    <input className='hidden' id='imageInput' type='file' accept='image/*' name='images' multiple onChange={handleImageChange} />
-                  </div>
-                </label>
+                <div className='flex justify-center lg:justify-start'>
+                  <label className='cursor-pointer flex items-center text-xs w-fit' htmlFor="imageInput">
+                    <div className='border p-8 bg-white shadow-xl rounded-sm border-dashed border-black hover:scale-105 ease-in-out transition-all'>
+                      <img className="text-center w-20 p-4 hover:scale-110 transition-all ease-in-out" src={assets.addimage} alt="" />
+                      <p className='text-center'>Add images</p>
+                      <p className='text-center text-xs text-neutral-500'>(max 5 images)</p>
+                      <input className='hidden' id='imageInput' type='file' accept='image/*' name='images' multiple onChange={handleImageChange} />
+                    </div>
+                  </label>
+                </div>
                 
-                <div className="flex gap-2 mt-4">
-                  {imagePreviews.map((preview, index) => (
-                    <img key={index} src={preview} alt="Pregled slike" className="w-20 h-20 object-cover rounded-md" />
-                  ))}
+                <div className='flex justify-center lg:justify-start'>
+                  <div className="gap-2 mt-4 grid grid-cols-2 lg:grid-cols-5">
+                    {imagePreviews.map((preview, index) => (
+                      <img key={index} src={preview} alt="Pregled slike" className="w-20 h-20 object-cover rounded-md" />
+                    ))}
+                  </div>
                 </div>
               </div>
               
-              <div className='flex gap-4 bg-white p-4 rounded-lg shadow-xl w-fit'>
-                <div className='w-fit '>
+              <div className='flex justify-center gap-4 bg-white p-4 rounded-lg lg:w-fit'>
+                <div className=''>
                     <p className='text-xl'>Heading</p>
                     <input className="border rounded-md p-2 text-lg" type="text" name="heading" value={input.heading} onChange={handleChange} required />
                 </div>
@@ -215,13 +230,17 @@ const CreateArticle = () => {
                 </div>
               </div>
               
-              <div className='rounded-lg mt-4 p-4 bg-white'>     
-                  <p className='mb-1 text-xl'>Description 1</p>
-                  <ReactQuill className="pb-20 rounded-sm  h-[250px] w-[300px] lg:w-[500px]" value={input.description} name="description" onChange={(value) => handleChange(value, "description")} required />
-              </div>
-              <div className='rounded-lg p-4 mt-4 bg-white'>     
-                  <p className='mb-1 text-xl'>Description 2 <span className='text-neutral-500 text-xs'>(optional)</span></p>
-                  <ReactQuill className="pb-20 rounded-sm  h-[250px] w-[300px] lg:w-[500px]" value={input.description2} name="description2" onChange={(value) => handleChange(value, "description2")} />
+             <div className='flex justify-center lg:block'>
+              <div className='rounded-lg mt-4 p-4 bg-white '>     
+                    <p className='mb-1 text-xl'>Description 1</p>
+                    <ReactQuill className="pb-20 rounded-sm z-0 h-[250px] md:w-[550px] lg:w-[280px] xl:w-[380px]" value={input.description} name="description" onChange={(value) => handleChange(value, "description")} required />
+                </div>
+             </div>
+              <div className='flex justify-center lg:block'>
+                <div className='rounded-lg p-4 mt-4 bg-white'>     
+                    <p className='mb-1 text-xl'>Description 2 <span className='text-neutral-500 text-xs'>(optional)</span></p>
+                    <ReactQuill className="pb-20 rounded-sm z-0 h-[250px] md:w-[550px] lg:w-[280px] xl:w-[380px]" value={input.description2} name="description2" onChange={(value) => handleChange(value, "description2")} />
+                </div>
               </div>
                <div>
             <div className='bg-white mt-4 p-4'>
@@ -239,12 +258,17 @@ const CreateArticle = () => {
                       <input className="border" type="radio" name="category" value="world" checked={input.category === 'world'} onChange={handleChange} />
                       <p>World</p>
                   </div>
-                  <div className="flex gap-2 border p-2 rounded">
-                      <input className="border" type="radio" name="category" value="techonology" checked={input.category === 'techonology'} onChange={handleChange} />
-                      <p>Technology</p>
+              </div>
+              <div className='flex items-center gap-2 mt-4'>
+                <div className="flex gap-2 border p-2 rounded">
+                    <input className="border" type="radio" name="category" value="techonology" checked={input.category === 'techonology'} onChange={handleChange} />
+                    <p>Technology</p>
+                </div>
+                <div className="flex gap-2 border p-2 rounded">
+                      <input className="border" type="radio" name="category" value="entertainment" checked={input.category === 'entertainment'} onChange={handleChange} />
+                      <p>Entertainment</p>
                   </div>
               </div>
-
               <div className='flex items-center gap-2 mt-4'>  
                   <div className="flex gap-2 border p-2 rounded">
                       <input className="border" type="radio" name="category" value="science" checked={input.category === 'science'} onChange={handleChange} />
@@ -253,10 +277,6 @@ const CreateArticle = () => {
                   <div className="flex gap-2 border p-2 rounded">
                       <input className="border" type="radio" name="category" value="sports" checked={input.category === 'sports'} onChange={handleChange} />
                       <p>Sports</p>
-                  </div>
-                  <div className="flex gap-2 border p-2 rounded">
-                      <input className="border" type="radio" name="category" value="entertainment" checked={input.category === 'entertainment'} onChange={handleChange} />
-                      <p>Entertainment</p>
                   </div>
                   <div className="flex gap-2 border p-2 rounded">
                       <input className="border" type="radio" name="category" value="series" checked={input.category === 'series'} onChange={handleChange} />
@@ -280,11 +300,12 @@ const CreateArticle = () => {
               </div>
             </div>
         </div>
-              <div className='w-full flex self-end justify-between mt-4'>
+              <div className='w-full flex self-end justify-center lg:justify-between mt-4 mb-16 lg:mb-0'>
                   <div></div>
-                  <button className='text-xl border rounded-md px-4 py-2 bg-black text-white hover:text-black hover:bg-white ease-in-out transition-all cursor-pointer' >Publish</button>
+                  <div>
+                    <button className='text-xl border rounded-md px-4 py-2 bg-black text-white hover:text-black hover:bg-white ease-in-out transition-all cursor-pointer' >Publish</button>
+                  </div>
               </div>
-
               </form>
             </div>
           </div>

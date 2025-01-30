@@ -69,13 +69,13 @@ const ReadArticle = () => {
       </div>
       ) : (
         <div>
-          <div className='grid grid-cols-3 gap-4'>
+          <div className='grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 overflow-y-visible'>
             {currentArticles.map((item, index) => (
-              <div className='shadow-2xl rounded-lg ease-in-out transition-all border border-black p-2 hover:scale-105' key={index}>
-                <div className='flex group justify-between'>
-                  <div className='w-[100px] h-[100px] overflow-hidden'>
+              <div className='flex shadow-2xl group rounded-lg ease-in-out overflow-hidden transition-all border border-black p-2 hover:scale-105' key={index}>                
+                <div className='flex group w-full'>
+                  <div className='w-[60px] h-[60px] md:w-[80px] md:h-[80px] lg:w-[80px] lg:h-[80px] xl:w-[80px] xl:h-[80px] overflow-hidden'>
                     <Link to={`https://www.umgnews.com/news/${item.headingslug}/${item.id}`} target='_blank'>
-                      <img className='w-[100px] h-[100px] object-cover hover:scale-110 ease-in-out transition-all' src={item.image[0]} alt="" />
+                      <img className='w-[60px] h-[60px] md:w-[80px] md:h-[80px] lg:w-[80px] lg:h-[80px] xl:w-[80px] xl:h-[80px] object-cover hover:scale-110 ease-in-out transition-all' src={item.image[0]} alt="" />
                     </Link>
                   </div>
                   <div className='ml-4'>
@@ -87,14 +87,14 @@ const ReadArticle = () => {
                       </Link>
                     </div>
                     <Link to={`https://www.umgnews.com/news/${item.headingslug}/${item.id}`} target='_blank'>
-                      <h1 className='text-lg font-bold hover:text-neutral-500 hover:translate-x-2 ease-in-out transition-all'>{item.heading.slice(0, 30)}</h1>
+                      <h1 className='lg:text-sm xl:text-sm font-bold hover:text-neutral-500 hover:translate-x-2 ease-in-out transition-all'>{item.heading.slice(0, 30)}</h1>
                     </Link>
                   </div>
-                  <div className=''>
-                    <button className='cursor-pointer' onClick={() => handleDelete(item.id)}>
+                </div>
+                <div className='relative group-hover:translate-x-0 translate-x-[200px] ease-in-out transition-all'>
+                  <button className='cursor-pointer' onClick={() => handleDelete(item.id)}>
                       <img className='size-6 hover:scale-105 ease-in-out transition-all' src={assets.trashcan} alt="" />
-                    </button>
-                  </div>
+                  </button>
                 </div>
               </div>
             ))}
@@ -124,3 +124,10 @@ const ReadArticle = () => {
   );
 };
 export default ReadArticle;
+// <div className='relative self-end'>
+  // <div className='absolute top-2 right-2'>
+  // <button className='cursor-pointer' onClick={() => handleDelete(item.id)}>
+  //   <img className='size-6 hover:scale-105 ease-in-out transition-all' src={assets.trashcan} alt="" />
+  // </button>
+  // </div>
+// </div>
