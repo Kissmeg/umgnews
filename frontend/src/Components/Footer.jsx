@@ -17,15 +17,15 @@ const Footer = () => {
                 <div className='lg:mt-0 mt-4'>
                     <p className='text-xl'>Navigation</p>
                     <div className='ml-2'>
-                        <Link to={`/`}><p className='              mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Home</p></Link>
-                        <Link to={`/category/world`}><p className='         mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>World</p></Link>
-                        <Link to={`/category/politics`}><p className='      mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Politics</p></Link>
-                        <Link to={`/category/business`}><p className='      mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Business</p></Link>
-                        <Link to={`/category/entertainment`}><p className=' mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Entertainment</p></Link>
-                        <Link to={`/category/who-is`}><p className='        mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Who is?</p></Link>
+                        <Link to={`/`} onClick={()=>handleScrollLink('home')}><p className='              mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Home</p></Link>
+                        <Link to={`/category/world`} onClick={()=>handleScrollLink('category')}><p className='         mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>World</p></Link>
+                        <Link to={`/category/politics`} onClick={()=>handleScrollLink('category')}><p className='      mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Politics</p></Link>
+                        <Link to={`/category/business`} onClick={()=>handleScrollLink('category')}><p className='      mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Business</p></Link>
+                        <Link to={`/category/entertainment`} onClick={()=>handleScrollLink('category')}><p className=' mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Entertainment</p></Link>
+                        <Link to={`/category/who-is`} onClick={()=>handleScrollLink('category')}><p className='        mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Who is?</p></Link>
                         <div className='w-fit border-t mt-2'>
-                            <Link to={`/category`}>
-                                <p className='mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>Categories</p>
+                            <Link to={`/category`} onClick={()=>handleScrollLink('categories')}>
+                                <p className='mt-2 lg:mt-0 hover:translate-x-2 text-neutral-400 hover:text-neutral-500 ease-in-out transition-all'>All categories</p>
                             </Link>
                         </div>
                     </div>

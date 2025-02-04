@@ -5,7 +5,8 @@ const getAarticles = () =>{
             const userData = localStorage.getItem('admin_data');
 
             const parsedData = JSON.parse(userData);
-
+            console.log(parsedData.token);
+            
             const res = await fetch(`${import.meta.env.VITE_URL}/api/getAllArticles`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json',

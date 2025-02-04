@@ -8,9 +8,10 @@ import menu from './menu.svg'
 import article_white from './article_white.svg'
 import dashboard_white from './dashboard_white.svg'
 import table_white from './table_white.svg'
-
+import logo from './logo.png'
 export const assets = {
     addimage,
+    logo,
     table_white,
     article_white,
     dashboard_white,

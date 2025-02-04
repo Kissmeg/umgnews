@@ -6,7 +6,11 @@ const useCreateArticle = () => {
 
         const parsedData = JSON.parse(userData);
         
-
+        console.log("Token:", parsedData.token);
+        
+        if(!parsedData.token){
+          return res.status(404).json({message:"Token is not valid."})
+        }
         if(!parsedData){
           return parsedData.token || null
           

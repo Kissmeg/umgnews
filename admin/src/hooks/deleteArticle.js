@@ -1,30 +1,42 @@
-const delArticle = ()=>{
+const delArticle = () => {
     const deleteArticle = async (id) => {
-        try {
-            const userData = localStorage.getItem('admin_data');
-
-            const parsedData = JSON.parse(userData);
-
-            if(!parsedData){
-            return parsedData.token || null
-            
-            }
-            const response = await fetch(`${import.meta.env.VITE_URL}/api/deleteArticle?id=${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${parsedData.token}`,  // Razmak između Bearer i tokena
-                  },
-            });
-    
-            if (response.ok) {
-                // Osvježavanje liste članaka ako je potrebno
-            } else {
-                console.error("Error deleting article");
-            }
-        } catch (error) {
-            console.error("Server error:", error);
+      try {
+        const userData = localStorage.getItem('admin_data');
+        if (!userData) {
+          console.error("No user data found");
+          return;
         }
+  
+        const parsedData = JSON.parse(userData);
+        if (!parsedData.token) {
+          console.error("No token found in user data");
+          return;
+        }
+  
+        const response = await fetch(`${import.meta.env.VITE_URL}/api/deleteArticle?id=${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${parsedData.token}`,  // Slanje tokena u Authorization headeru
+          },
+        });
+  
+        if (response.ok) {
+          console.log("Article deleted successfully");
+          // Osvježavanje liste članaka ili nešto drugo...
+        } else {
+          console.error("Error deleting article", response.status);
+          if (response.status === 401) {
+            console.error("Unauthorized access. Please log in again.");
+            // Možda preusmeriti korisnika na login stranu ili obrisati token iz localStorage
+          }
+        }
+      } catch (error) {
+        console.error("Server error:", error);
+      }
     };
-    return { deleteArticle }    
-}
-export default delArticle
+  
+    return { deleteArticle };
+  }
+  
+  export default delArticle;
+  

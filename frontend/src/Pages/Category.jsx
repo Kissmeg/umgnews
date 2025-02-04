@@ -62,19 +62,19 @@ const Category = () => {
         <div className="main-font pt-4" id='category'>
             {loading && page === 1 ? (
                 <div className='pt-44'>
-                    <div className='md:flex justify-between'>
+                    <div className='lg:flex justify-between'>
                         <div className='p-4'>
-                            <div className='p-40 border rounded-lg bg-neutral-100 animate-pulse'>
+                            <div className='p-24 md:p-48 lg:p-28 xl:p-30 border rounded-lg bg-neutral-100 animate-pulse'>
 
                             </div>
                         </div>
                         <div className='p-4'>
-                            <div className='p-40 border rounded-lg bg-neutral-100 animate-pulse'>
+                            <div className='p-24 md:p-48 lg:p-28 xl:p-30 border rounded-lg bg-neutral-100 animate-pulse'>
 
                             </div>
                         </div>
                         <div className='p-4'>
-                            <div className='p-40 border rounded-lg bg-neutral-100 animate-pulse'>
+                            <div className='p-24 md:p-48 lg:p-28 xl:p-30 border rounded-lg bg-neutral-100 animate-pulse'>
 
                             </div>
                         </div>

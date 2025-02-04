@@ -51,13 +51,13 @@ const News = () => {
     <div className='main-font'>
       {bigImage && (
        <div>
-        <div className='fixed z-50 left-0 bg-black w-full h-full opacity-50' onClick={()=>setBigImage(!bigImage)}>
+        <div className='fixed z-50 left-0 bg-black w-full h-full opacity-50 ' onClick={()=>setBigImage(!bigImage)}>
           <div className=''>
 
           </div>
         </div>
           <div className='fixed z-50 p-4 top-1/2 -translate-y-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:left-1/2 lg:top-1/2'>
-            <img className='cursor-pointer' src={bigImage} onClick={()=>setBigImage(!bigImage)} alt="" />
+            <img className='animate-scale cursor-pointer ' src={bigImage} onClick={()=>setBigImage(!bigImage)} alt="" />
           </div>
        </div>
       )}

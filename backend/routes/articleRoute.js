@@ -10,7 +10,7 @@ articleRoute.get('/getArticle', getArticle)
 articleRoute.get('/getAllArticles', ensureToken, getAllArticles)
 articleRoute.get('/getArticleId', getArticleId)
 articleRoute.get('/getCategory', getCategory)
-articleRoute.delete('/deleteArticle', ensureToken, deleteArticle)
+articleRoute.delete('/deleteArticle',ensureToken, deleteArticle)
 articleRoute.post('/login', login)
 articleRoute.get('/getAnalitics', getAnalitics)  
 export default articleRoute

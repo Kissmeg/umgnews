@@ -49,3 +49,18 @@
 .animate-up{
   animation: animate-up 0.3s ease-in-out;
 }
+
+
+@keyframes animate-scale {
+  0%{
+    scale: 0;
+    opacity: 0;
+  }
+    100%{
+    opacity: 1;
+    scale: 1;
+  }
+}
+.animate-scale{
+  animation: animate-scale 0.3s ease-in-out;
+}

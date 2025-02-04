@@ -1,11 +1,12 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import promisePool from '../db.js';
-
+import dotenv from 'dotenv';
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
+        console.log(process.env.JWT_SECRET);
+        
         // Provera da li admin postoji u bazi
         const [results] = await promisePool.query('SELECT * FROM admin WHERE email = ?', [email]);
         
@@ -24,7 +25,7 @@ const login = async (req, res) => {
         // Generisanje JWT tokena
         const token = jwt.sign(
             { id: admin.id, username: admin.username, email: admin.email },
-            'secretkey123', // Ovu vrednost prebaci u `.env` u pravom projektu!
+            process.env.JWT_SECRET, // Ovu vrednost prebaci u `.env` u pravom projektu!
             { expiresIn: '1h' }
         );
 
@@ -70,15 +71,29 @@ const register = async (req, res) => {
 
 export function ensureToken(req, res, next) {
     const bearerHeader = req.headers["authorization"];
-    if (typeof bearerHeader !== 'undefined' && bearerHeader.startsWith("Bearer ")) {
-        const bearerToken = bearerHeader.split(" ")[1];
-        if (!bearerToken) {
-            return res.sendStatus(403); // Token nije prisutan
-        }
-        req.token = bearerToken;
-        next();
-    } else {
-        res.sendStatus(403); // Header nije prisutan ili ne sadrži Bearer
+
+    if (!bearerHeader || !bearerHeader.startsWith("Bearer ")) {
+        return res.status(403).json({ message: "Unauthorized access" });
     }
+
+    const bearerToken = bearerHeader.split(" ")[1];
+
+    jwt.verify(bearerToken, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+        console.error("JWT verification error:", err);
+        return res.status(401).json({ message: "Invalid or expired token" });
+    }
+
+    console.log("Decoded token:", decoded); // Loguj decoded token
+
+    if (!decoded.id || !decoded.username) {  // Ako nedostaje 'id' ili 'username'
+        console.error("Invalid token payload:", decoded); // Loguj nevalidni payload
+        return res.status(403).json({ message: "Invalid token payload - Missing required fields" });
+    }
+
+    req.user = decoded; // Token je validan, prosleđujemo user podatke u request
+    next();
+});
+
 }
 export { login, register };

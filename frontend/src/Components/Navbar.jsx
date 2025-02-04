@@ -108,6 +108,12 @@ const Navbar = () => {
               <p>Who is?</p>
             </Link>
           </div>
+          <hr />
+          <div className='mt-4 w-fit'>
+            <Link to={'/category'} onClick={()=>{handleScrollLink('category'), setMobileMenu(false)}}>
+              <p className='text-lg'>All categories</p>
+            </Link>
+          </div>
         </div>
       </div>
       <div>

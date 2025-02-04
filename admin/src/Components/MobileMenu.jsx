@@ -4,16 +4,23 @@ import { assets } from '../assets/assets';
 import { useContext } from 'react';
 import { Context } from '../Context/JSXContext';
 import { useAuth } from '../Context/useAuth';
-
+import {Link} from 'react-router-dom'
 const MobileMenu = () => {
-     const {logout} = useAuth();
+    const {logout} = useAuth();
     const {setSelectedMenu, selectedMenu} = useContext(Context);
     const [mobileMenu, setMobileMenu] = useState();
     return (
     <div>
       <div className='fixed p-2 bg-black w-full'>
-        <div className='flex justify-end'>
-          <img className='' src={assets.menu} alt="" onClick={()=>setMobileMenu(!mobileMenu)}/>
+        <div className='flex justify-between'>
+          <div>
+            <Link to={'https://www.umgnews.com'} target='_blank'>
+              <img className='w-[50px] h-[50px] object-cover hover:scale-110 ease-in-out transition-all' src={assets.logo} alt="" />
+            </Link>
+          </div>
+          <div>
+            <img className='' src={assets.menu} alt="" onClick={()=>setMobileMenu(!mobileMenu)}/>
+          </div>
         </div>
       </div>
       <div className={`fixed z-40 bg-black transition-all h-full w-full opacity-10 border-r rounded-tr-2xl ease-in-out  ${mobileMenu ? `transition-all ease-in-out -translate-x-0` : `transition-all ease-in-out -translate-x-full`}`} onClick={()=>setMobileMenu(!mobileMenu)}>

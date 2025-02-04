@@ -4,11 +4,12 @@ import promisePool from '../db.js';  // Importuj pool iz db.js
 
 const createArticle = async (req, res) => {
     try {
-      console.log("Received data:", req.body);
-      console.log("Received files:", req.files);
-  
-      const { heading, headingslug, description, description2, location, date, category, time} = req.body;
-      const imageFiles = req.files;
+
+        console.log("Received data:", req.body);
+        console.log("Received files:", req.files);
+            
+        const { heading, headingslug, description, description2, location, date, category, time} = req.body;
+        const imageFiles = req.files;
   
       if (!imageFiles || imageFiles.length === 0) {
         return res.status(400).json({ message: "At least one image is required." });
